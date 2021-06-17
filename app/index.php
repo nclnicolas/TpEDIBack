@@ -26,7 +26,7 @@ use Slim\Routing\RouteContext;
 
 require __DIR__ .'/../vendor/autoload.php';
 
-require __DIR__ .'/accesoAdatos/AccesoAdatos.php';
+require __DIR__ .'/accesoAdatos/accesoAdatos.php';
 
 require __DIR__ . '/controllers/SociosControllers.php';
 
