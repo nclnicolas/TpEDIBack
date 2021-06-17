@@ -28,7 +28,8 @@
 
             $mail="'".$mail."'";
 
-            $contraseña="'".$contraseña."'";
+            $contraseña="'".$contraseña."'"; 
+            
 
             $consulta=$accesoAdatos->prepararConsulta("SELECT * FROM Socios WHERE email=$mail AND contraseña=$contraseña");
 
