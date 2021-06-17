@@ -102,7 +102,7 @@ $app->group('/Usuarios', function (RouteCollectorProxy $group) {
 
 $app->get('[/]',function(Request $request, Response $response, array $args) { 
 
-    $response->getBody()->write("Hello");
+    $response->getBody()->write("RutaBasica");
 
     return $response;
 
