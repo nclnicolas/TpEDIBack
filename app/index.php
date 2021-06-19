@@ -1,11 +1,10 @@
+<?php include("./auxiliar/agregar.php")?>
 <?php
-
 
 
 error_reporting(-1);
 
 ini_set('display_errors', 1);
-
 
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -42,7 +41,6 @@ $app = AppFactory::create();
 $app->addErrorMiddleware(true, true, true);
 
 
-
 $app->add(function (Request $request, RequestHandlerInterface $handler): Response {
 
     
@@ -65,18 +63,44 @@ $app->add(function (Request $request, RequestHandlerInterface $handler): Respons
 
 });
 
+$app->group('/register', function (RouteCollectorProxy $group) {
 
 
+    $group->get('/user',function(Request $request, Response $response, array $args) { 
+        
+        $response->getBody()->write("register");?>
+        <form method="POST">
+            <label>nombre</label>
+            <input type="text" name="Nombre">
+            <label>apellido</label>
+            <input type="text" name="Apellido">
+            <label>email</label>
+            <input type="email" name="E-mail">
+            <label>dni</label>
+            <input type="text" name="DNI">
+            <label>nacionalidad</label>
+            <input type="text" name="Nacionalidad">
+            <label>fecha de nacimiento</label>
+            <input type="date" name="FechadeNacimiento">
+            <label>contraseña</label>
+            <input type="password" name="Contrasena">
+            <input type="submit" name="Cargar" value="Cargar Dato">
+        </form>
+        <?php
+        
+        return $response;
 
+    });
+
+});
 
 $app->group('/Usuarios', function (RouteCollectorProxy $group) {
 
 
-
     $group->get('/loguin',function(Request $request, Response $response, array $args) { 
-
+        
         $response->getBody()->write("Hello");
-
+        
         return $response;
 
     });
@@ -89,12 +113,6 @@ $app->group('/Usuarios', function (RouteCollectorProxy $group) {
 
     /*$group->post('/registrar'.\UsuariosController::class.':retornarEstadoRegistro');*/
 
-
-   
-
-
-    
-
 });
 
 
@@ -102,14 +120,28 @@ $app->group('/Usuarios', function (RouteCollectorProxy $group) {
 
 $app->get('[/]',function(Request $request, Response $response, array $args) { 
 
-    $response->getBody()->write("RutaBasica");
-
+    $response->getBody()->write("Nico putito");?>
+    <a href="/register/user">register<a>
+    <?php
     return $response;
 
 });
 
+// $app->setBasePath("http://localhost:3001");
 
+if(isset($_POST["Cargar"])){
+    echo "entro";
+    $nombre=$_REQUEST['Nombre'];
+    $apellido=$_REQUEST['Apellido'];
+    $mail=$_REQUEST['E-mail'];
+    $dni=$_REQUEST['DNI'];
+    $nacionalidad=$_REQUEST['Nacionalidad'];
+    $fechadenacimiento=$_REQUEST['FechadeNacimiento'];
+    $contrasena=$_REQUEST['Contrasena'];
 
+    
+    agregarUser($nombre, $apellido, $mail, $dni, $nacionalidad, $fechadenacimiento, $contrasena);
+}
 
 
 $app->run();
